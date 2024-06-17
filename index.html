@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>见面倒计时</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .content {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: black;
+        }
+
+        .timer {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #FF1493;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">见面倒计时</div>
+        <div class="timer" id="timer">想见你想见你想见你</div>
+        <div class="timer">❤️</div>
+    </div>
+
+    <script>
+        // 获取两个时间对象
+        const date1 = new Date(); // 开始时间
+        const date2 = new Date("2024-06-20T19:40:00"); // 结束时间
+
+        // 将时间转换为时间戳（以毫秒为单位）
+        const timestamp1 = date1.getTime();
+        const timestamp2 = date2.getTime();
+
+        // 计算两个时间戳之间的差值（以毫秒为单位）
+        const intervalMilliseconds = Math.abs(timestamp2 - timestamp1);
+
+        // 设置初始时间（秒）
+        let countdownTime = Math.floor(intervalMilliseconds / 1000);
+        const timerElement = document.getElementById('timer');
+
+        // 更新倒计时函数
+        function updateTimer() {
+            var seconds = countdownTime
+            const days = Math.floor(seconds / (24 * 3600));
+            seconds %= 24 * 3600;
+            const hours = Math.floor(seconds / 3600);
+            seconds %= 3600;
+            const minutes = Math.floor(seconds / 60);
+            seconds %= 60;
+            
+            if (days > 0) {
+              timerElement.textContent = days + '天' + hours + '小时' + minutes + '分' + seconds + '秒';
+            } else if (hours > 0) {
+              timerElement.textContent = hours + '小时' + minutes + '分' + seconds + '秒';
+            } else if (minutes > 0) {
+              timerElement.textContent = minutes + '分' + seconds + '秒';
+            } else {
+              timerElement.textContent = seconds + '秒';
+            }
+            
+            if (countdownTime > 0) {
+                countdownTime--;
+            } else {
+                clearInterval(timerInterval);
+                // 倒计时结束时可以添加其他操作
+                timerElement.textContent = "好了，到我怀里来！";
+            }
+        }
+
+        // 每秒更新一次倒计时
+        const timerInterval = setInterval(updateTimer, 1000);
+    </script>
+</body>
+</html>
