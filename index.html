@@ -50,7 +50,7 @@
         const timestamp2 = date2.getTime();
 
         // 计算两个时间戳之间的差值（以毫秒为单位）
-        const intervalMilliseconds = Math.abs(timestamp2 - timestamp1);
+        const intervalMilliseconds = timestamp2 - timestamp1;
 
         // 设置初始时间（秒）
         let countdownTime = Math.floor(intervalMilliseconds / 1000);
@@ -85,8 +85,13 @@
             }
         }
 
-        // 每秒更新一次倒计时
-        const timerInterval = setInterval(updateTimer, 1000);
+        if (countdownTime > 0) {
+          // 每秒更新一次倒计时
+          const timerInterval = setInterval(updateTimer, 1000);
+        } else {
+          timerElement.textContent = "好了，到我怀里来！";
+        }
+        
     </script>
 </body>
 </html>
